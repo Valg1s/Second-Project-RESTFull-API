@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {%block title %} {% endblock %}
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto+Condensed&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/reset.css') }}"/>
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/style4toxa.css') }}"/>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="/" class="logo">
+          <img src="{{ url_for('static',filename='images/logo.png') }}" alt="логотип школи" class="logo-img">
+        </a>
+        <nav class="header__nav menu">
+          <span class="menu__inner">
+          <ul class="menu__list">
+            <li class="menu__item">
+              <a href="/" class="menu__link">Головна</a>
+            </li>
+            <li class="menu__item">
+              <a href="/about" class="menu__link">Про нас</a>
+            </li>
+            <li class="menu__item">
+              <a href="/services" class="menu__link">Послуги</a>
+            </li>
+            <li class="menu__item">
+              <a href="/contacts" class="menu__link">Контаки</a>
+            </li>
+          </ul>
+            {% if not id_of_user %}
+            <a href="/login" class="header__login"> Увійти </a>
+            {% else: %}
+            <a href="/logout" class="header__login"> Вийти </a>
+            {% endif %}
+          </span>
+        {% if id_of_user %}
+
+          <div class="menu__icon-burger">
+            <span></span>
+           </div>
+
+
+        <div class="menu__icon">
+          <div class="menu__icon-inner">
+            <h2 class="menu__icon-title">меню</h2>
+            <ul class="menu__icon-list icon__list">
+              <li class="icon__list-item">
+                <a href="/account" class="icon__list-link">Особистий кабінет</a>
+              </li>
+              <li class="icon__list-item">
+                <a href="/players" class="icon__list-link">Гравці</a>
+              </li>
+              <li class="icon__list-item">
+                <a href="/coaches" class="icon__list-link">Тренери</a>
+              </li>
+              <li class="icon__list-item">
+                <a href="/calendar" class="icon__list-link">Календар</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {% endif %}
+      </nav>
+      </div>
+    </div>
+  </header>
+
+  {% block main%}
+  {%endblock%}
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__item">
+          <p class="footer__copyright">2022 by AndrejK</p>
+        </div>
+
+        <div class="footer__item">
+          <ul class="footer__list">
+            <li class="footer__list-title">
+              Час роботи
+            </li>
+            <li class="footer__list-item">ПН-ПТ: 9:00-22:00</li>
+            <li class="footer__list-item">Сб-Вс: 11:00-18:00</li>
+          </ul>
+        </div>
+
+        <div class="footer__item">
+          <ul class="footer__list">
+            <li class="footer__list-title">Меню</li>
+            <li class="footer__list-item">Головна</li>
+            <li class="footer__list-item">Про нас</li>
+            <li class="footer__list-item">Послуги</li>
+            <li class="footer__list-item">Контаки</li>
+          </ul>
+        </div>
+
+        <div class="footer__item">
+          <ul class="footer__list">
+            <li class="footer__list-title">Контакти</li>
+            <li class="footer__list-item">Україна, м.Харків, <br>вул. Грозненська, 48</li>
+            <li class="footer__list-item">Mail: ourschool@gmail.com</li>
+            <li class="footer__list-item">Tel: +38(099)-2345-111</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{ url_for('static',filename='scripts/main.js') }}"> </script>
+<script src="{{ url_for('static',filename='scripts/calendar.js') }}"> </script>
+
+</body>
+
+</html>

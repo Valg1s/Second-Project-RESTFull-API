@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ super() }}
+<title>Вхід</title>
+{% endblock %}
+
+
+{% block main %}
+{{ super() }}
+
+<main>
+  <div class="login">
+    <div class="container">
+      {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <ul class=flashes>
+                                    {% for message in messages %}
+                                        <li class="contact__descr">{{ message }}</li>
+                                    {% endfor %}
+                                 </ul>
+                            {% endif %}
+                        {% endwith %}
+      <form class="login__form" method="POST">
+        <input class="login__input" name="login" type="text" placeholder="Логін">
+        <input class="login__input" name="password" type="password" placeholder="Пароль">
+        <button class="login__btn">Війти</button>
+      </form>
+      <p class="login__text">Немає аккаутну? <a class="login__text-link" href="{{ url_for('registration') }}">Зареєструватися</a></p>
+    </div>
+  </div>
+</main>
+
+{% endblock %}

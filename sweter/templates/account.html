@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ super() }}
+<title>Особистий кабінет</title>
+{% endblock %}
+
+{%block main%}
+{{ super() }}
+
+<main>
+    <section class="account">
+      <div class="container">
+
+        <h2 class="account__name">{{ user[0].acc_lname }} {{ user[0].acc_fname }} {{ user[0].acc_patronymic }}</h2>
+        <div class="account__box">
+          <div class="account__item">
+            <div class="account__photo">
+              <img class="account__photo-img" src="/static/images/{{user[0].name_of_photo}}" alt="фото">
+            </div>
+            <div class="account__form-wrappeer">
+              {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <ul class=flashes>
+                                    {% for message in messages %}
+                                        <li class="contact__descr">{{ message }}</li>
+                                    {% endfor %}
+                                 </ul>
+                            {% endif %}
+                        {% endwith %}
+              <form action="/account" method="post" enctype="multipart/form-data" class="accout__item-form.account__form">
+                <input class="account__form-upload" name="photo" type="file">
+                <button type="submit" class="account__form-btn" >Завантажити нове фото</button>
+              </form>
+            </div>
+          </div>
+          <div class="account__item">
+            <ul class="account__list">
+              <li class="account__list-item">Статус: {% if user_status == '0' %}Гравець{% else: %}Тренер{% endif %}</li>
+              <li class="account__list-item">Команда: {{user[2].team_name}}</li>
+              {% if user_status == '0' %}
+              <li class="account__list-item">Амплуа: {{user[1].player_position}}</li>
+              <li class="account__list-item">Кількість голів: {{user[1].player_goals}}</li>
+              <li class="account__list-item">Кількість асистів: {{user[1].player_assist}}</li>
+              <li class="account__list-item">Стан здоров'я: {{ user[1].player_health }}</li>
+              {% else: %}
+              <li class="account__list-item">Робочий стаж: {{user[1].coach_experience}}</li>
+              {% endif %}
+              <li class="account__list-item">Відсоток перемог:{{ user_win_rate }} %</li>
+              <li class="account__list-item">Кількість зіграних матчей: {{all_games}} </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+{% endblock %}

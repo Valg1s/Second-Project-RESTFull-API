@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ super() }}
+<title>Про нас</title>
+{% endblock %}
+
+{%block main%}
+{{ super() }}
+<main>
+    <section class="about">
+      <div class="container">
+        <div class="about__inner">
+          <div class="about__box about__text">
+            <h2 class="about__text-title main-title">
+              Про нас
+            </h2>
+            <p class="about__text-descr">
+              Основна мета нашої школи є підвищиння рівня наших спортсменів та надання тих знань та досвіду, що ми самі маємо, для створення їх вдачної кар’єри. І цієї мети ми намагаємося притримуватися з момента заснування у 1971 році.
+            </p>
+          </div>
+
+          <div class="about__box about__text">
+            <h2 class="about__text-title main-title">
+              Наша місія
+            </h2>
+            <p class="about__text-descr">
+              Основна наша мета - це виховання молодих футболістів, які майже не будуть мати технічного браку не тільки при роботі з м’ячем, але й при виконанні таких фізичних елементів як рваний або човниковий біг, вистрибування та інші елементи, що спортсмен виконує під час змагань. Саме для цього ми співпрацюємо з різними спортивними організаціями для обміну досвідом та вдосконалення тренувальних систем.
+            </p>
+          </div>
+
+          <div class="about__box about__team">
+            <h2 class="about__team-title main-title">
+              Наша команда
+            </h2>
+            {% for coach in coaches %}
+            <div class="about__team-items">
+              <div class="about__team-item">
+                <div class="about__team-part about__team-partleft">
+                  <img class="about__team-img" src="static/images/{{coach[1].name_of_photo}}" alt="фото тренера">
+                </div>
+
+                <div class="about__team-part about__team-partright">
+                  <span class="about__team-name name-people">
+                    {{ coach[1].acc_lname }} {{ coach[1].acc_fname }} {{ coach[1].acc_patronymic }}
+                    <h3 class="name-people__post">Тренер команди {{ coach[2].team_name }} </h3>
+                  </span>
+
+                  <div class="about__team-decor"></div>
+
+                  <p class="about__team-descr">
+                    {{coach[0].coach_info}}
+                  </p>
+                  <p class="about__team-experience">Робочий стаж: {% if coach[0].coach_experience == "1" %} 1 рік {% else: %} {{coach[0].coach_experience}} роки {% endif %}</p>
+                  <ul class="about__team-list about__list">
+                    <li class="about__list-title">Освіта:</li>
+                    <li class="about__list-item">Понва сердня освіта</li>
+                    <li class="about__list-item">{{coach[0].coach_education}}</li>
+                  </ul>
+                </div>
+              </div>
+
+              {% endfor %}
+
+
+
+
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}

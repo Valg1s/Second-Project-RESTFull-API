@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ super() }}
+<title>Реєстрація</title>
+{% endblock %}
+
+
+{% block main %}
+{{ super() }}
+
+<main>
+    <div class="register">
+      <div class="container">
+        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <ul class=flashes>
+                                    {% for message in messages %}
+                                        <li class="contact__descr">{{ message }}</li>
+                                    {% endfor %}
+                                 </ul>
+                            {% endif %}
+                        {% endwith %}
+        <form action="" class="register__form" method="POST">
+          <input class="login__input" name="login" type="text" placeholder="Логін">
+          <input class="login__input" name="password" type="password" placeholder="Пароль">
+          <input class="login__input" name="password2" type="password" placeholder="Повторіть пароль">
+          <input class="register__input--1" name="fname" type="text" placeholder="Ім'я">
+          <input class="register__input--1" name="lname" type="text" placeholder="Прізвище">
+          <input class="register__input--1" name="patronymic" type="text" placeholder="По Батькові">
+          <span class="register__input-wrapper--2">
+            <input class="register__input--2" name="position" type="text" placeholder="Амплуа">
+            <input class="register__input--2" name="weight" type="text" placeholder="Вага">
+            <input class="register__input--2" name="height" type="text" placeholder="Зріст">
+          </span>
+          <input class="register__input--1" name="health" type="text" placeholder="Стан здоров'я">
+          <span class="register__input-wrapper--3">
+            <input class="register__input--3" name="born_date" type="date" placeholder="Дата народження">
+            <input class="register__input--3" name="date_in_contract" type="date" placeholder="Дата оформлення контракту">
+          </span>
+
+          <div class="register__gender-wrapper">
+            <span class="register__gender">
+              <div>
+                <input  name="gender" type="radio" value="0"> Чоловічий <br>
+              </div>
+            </span>
+            <span class="register__gender">
+              <div>
+                <input  name="gender" type="radio" value="1"> Жіночий <br>
+              </div>
+            </span>
+          </div>
+
+          <button type="submit" class="register__btn">Зареєструватися</button>
+        </form>
+
+      </div>
+    </div>
+  </main>
+
+{% endblock %}

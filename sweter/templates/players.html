@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ super() }}
+<title>Гравці</title>
+{% endblock %}
+
+{%block main%}
+{{ super() }}
+
+<main>
+    <section class="player">
+        <div class="container">
+            <h2 class="player__title main-title">Гравці команди {{team_name}}</h2>
+            {% for player in pages.items %}
+            <div class="player__box">
+                <div class="player__item">
+                    <div class="player__item-photo">
+                        <div>
+                            <img class="player__item-img" src="/static/images/{{player[0].name_of_photo}}"
+                                 alt="фото гравця">
+                        </div>
+                    </div>
+                    <div class="player__item-info">
+                        <h3 class="player__item-name">
+                            {{ player[0].acc_lname }} {{ player[0].acc_fname }} {{ player[0].acc_patronymic }}
+                        </h3>
+                        <p class="player__item-text player__item-postion">Амплуа: {{player[1].player_position}}</p>
+                        <p class="player__item-text player__item-bd">Дата народження: {{
+                            player[0].acc_born_date.strftime('%Y-%m-%d')}}</p>
+                        <p class="player__item-text player__item-incontract">Дата оформлення контракту: {{
+                            player[0].acc_date_in_contract.strftime('%Y-%m-%d')}} </p>
+                        <p class="player__item-text player__item-outcontract">Дата закінчення контракту: {{
+                            player[0].acc_date_out_contract.strftime('%Y-%m-%d')}} </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <nav aria-label="Page navigation example">
+            <ul class="pagination-list">
+                <li class="page-item"><a class="page-link" href="/players?page={{pages.prev_num}}" >Previous</a></li>
+
+                {% for page in pages.iter_pages() %}
+                <li class="page-item"><a class="page-link" href="/players?page={{page}}">{{ page }}</a></li>
+                {% endfor %}
+
+                <li class="page-item"><a class="page-link" href="/players?page={{pages.next_num}}">Next</a></li>
+            </ul>
+        </nav>
+        </div>
+    </section>
+</main>
+
+{% endblock %}

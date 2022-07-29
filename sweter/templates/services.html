@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ super() }}
+<title>Послуги</title>
+{% endblock %}
+
+
+{% block main %}
+{{ super() }}
+<main>
+    <section class="services">
+      <div class="container">
+        <div class="services__inner">
+          <h1 class="services__title main-title">Наши послуги</h1>
+          <div class="services__training">
+            <div class="services__training-box">
+              <h2 class="services__training-title">
+                Індивідуальні тренування
+              </h2>
+              <div class="services__training-items">
+                <div class="services__training-item">
+                  <img class="services__training-img" src="{{ url_for('static',filename='images/solo-training.jpg') }}" alt="">
+                </div>
+                <div class="services__training-item">
+                  <p class="services__training-descr">
+                    На індивідуальних тренуваннях ви маєте можливість персонально працювати з тренером та працювати за індивідуальою програмою, яку вам буде зіставляти тренер.
+                  </p>
+                  <ul class="services__training-list services__list">
+                    <li class="services__list-title">Переваги:</li>
+                    <li class="services__list-item">Свій темп роботи</li>
+                    <li class="services__list-item">Більший контроль щодо якості виконання вправи</li>
+                    <li class="services__list-item">Найшвидкіший спосіб підняття свого рівня майстерності</li>
+                  </ul>
+                  <ul class="services__training-list services__list">
+                    <li class="services__list-title">Зауваження:</li>
+                    <li class="services__list-item">Для ще більш швидшого засвоєння досвіду необхідні тренування у группі.</li>
+                  </ul>
+                  <a href="#" class="services__link link">Записатися</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="services__training">
+            <div class="services__training-box">
+              <h2 class="services__training-title">
+                Групові тренування
+              </h2>
+              <div class="services__training-items">
+                <div class="services__training-item">
+                  <img class="services__training-img" src="{{ url_for('static',filename='images/group-training.jpg') }}" alt="">
+                </div>
+                <div class="services__training-item">
+                  <p class="services__training-descr">
+                    На групових тренуваннях ви маєте можливість працювати у команді з різними гравцями та відпрацьовувати вправи, які допоможуть показати більш високий рівень розуіння футболу, ніж ваш суперник.
+                  </p>
+                  <ul class="services__training-list services__list">
+                    <li class="services__list-title">Переваги:</li>
+                    <li class="services__list-item">Робота у команді</li>
+                    <li class="services__list-item">Розуміння взаємодії з тренерам на полі.</li>
+                    <li class="services__list-item">Найшвидкіший спосіб придбання практичного досвіду переміщення на полі.</li>
+                  </ul>
+                  <ul class="services__training-list services__list">
+                    <li class="services__list-title">Зауваження:</li>
+                    <li class="services__list-item">Для кращего взаємозв’язку ви маєте мати технічну та теоретичну базу, яку можна здобути на індивідуальних та теоретичних заняттях.</li>
+                  </ul>
+                  <a href="#" class="services__link link">Записатися</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="services__training">
+            <div class="services__training-box">
+              <h2 class="services__training-title">
+                Теоретичні тренування
+              </h2>
+              <div class="services__training-items">
+                <div class="services__training-item">
+                  <img class="services__training-img" src="{{ url_for('static',filename='images/tactic-training.jpg') }}" alt="">
+                </div>
+                <div class="services__training-item">
+                  <p class="services__training-descr">
+                    На теоретичних тренуваннях ви маєте можливість персонально працювати з тренером та працювати за індивідуальою програмою, яку вам буде зіставляти тренер.
+                  </p>
+                  <ul class="services__training-list services__list">
+                    <li class="services__list-title">Переваги:</li>
+                    <li class="services__list-item">Персональна та групова робота з тренером</li>
+                    <li class="services__list-item">Розвинення футбольного інтелекту</li>
+                    <li class="services__list-item">Єдиний спосіб отримання повного обсягу знань з переміщення по полю</li>
+                  </ul>
+                  <ul class="services__training-list services__list">
+                    <li class="services__list-title">Зауваження:</li>
+                    <li class="services__list-item">Обов’язково необхідні тренування у группі.</li>
+                  </ul>
+                  <a href="#" class="services__link link">Записатися</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}

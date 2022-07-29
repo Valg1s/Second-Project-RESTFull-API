@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ super() }}
+<title>Головна</title>
+{% endblock %}
+
+{%block main%}
+{{ super() }}
+  <main>
+    <section class="banner" style="background-image:url({{ url_for('static',filename='images/banner-bg.jpg') }})">
+      <div class="container">
+        <div class="banner__inner">
+          <h1 class="banner__title">
+            Відкрий нового себе з нами.
+            <span class="banner__suptitle">
+              Ідеальні тренування для усіх футболістів
+            </span>            
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <section class="our-services services">
+      <div class="container">
+        <h2 class="our-services__title main-title">
+          Наши послуги
+        </h2>
+        <div class="our-services__box">
+          <div class="our-services__box-item">
+            <img src="{{ url_for('static',filename='images/solo-training.jpg') }}" alt="фотографія хлопця з м'ячем" class="our-services__box-img">
+            <h3 class="our-services__box-title">
+              Індивідуальне заняття
+            </h3>
+            <ul class="our-services__box-list our-services__list">
+              <li class="our-services__list-item">
+                Дриблінг
+              </li>
+              <li class="our-services__list-item">
+                Контроль м’яча
+              </li>
+              <li class="our-services__list-item">
+                Фізична підготовка
+              </li>
+            </ul>
+          </div>
+
+          <div class="our-services__box-item">
+            <img src="{{ url_for('static',filename='images/group-training.jpg') }}" alt="фотографія хлопця з м'ячем" class="our-services__box-img">
+            <h3 class="our-services__box-title">
+              Группові заняття
+            </h3>
+            <ul class="our-services__box-list our-services__list">
+              <li class="our-services__list-item">
+                Робота у команді
+              </li>
+              <li class="our-services__list-item">
+                Контроль м’яча
+              </li>
+              <li class="our-services__list-item">
+                Фізична підготовка
+              </li>
+            </ul>
+          </div>
+
+          <div class="our-services__box-item">
+            <img src="{{ url_for('static',filename='images/tactic-training.jpg') }}" alt="фотографія хлопця з м'ячем" class="our-services__box-img">
+            <h3 class="our-services__box-title">
+              Технічні заняття
+            </h3>
+            <ul class="our-services__box-list our-services__list">
+              <li class="our-services__list-item">
+                Позиція
+              </li>
+              <li class="our-services__list-item">
+                Переміщення
+              </li>
+              <li class="our-services__list-item">
+                Фізична підготовка
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-about" style="background-image: {{ url_for('static',filename='images/about-bg.jpg') }};">
+      <div class="container">
+        <div class="home-about__inner">
+          <h2 class="about__title main-title">
+            Про школу
+          </h2>
+          <div class="home-about__text">
+            <p class="home-about__text-descr">Ми заснованні у 1971 році. В нашій школі ви маєти можливість підтримувати та вдосконалти свою фізичну форму, записавгись до групи або індивідуального завданя, обравши тренера з нашого переліку.</p>
+            <p class="home-about__text-descr">Ми спілкуємося з найкращими командами у різних дисциплінах, щоб вдосконалити кожен елемент наших спортсменів</p>
+          </div>
+          <a class="home-about__link link" href="{{ url_for('about') }}">Дізнатися більше</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="partners">
+      <div class="container">
+        <h2 class="partners__title main-title">
+          Наші партнери
+        </h2>
+      </div>
+
+    </section>
+
+    <section class="team">
+      <div class="container">
+        <h2 class="team__title main-title">
+          Наші тренери
+        </h2>
+        <div class="team__box">
+          {% for coach in coaches %}
+          <div class="team__box-item">
+            <img class="team__box-img" src="static/images/{{coach.name_of_photo}}" alt="">
+            <h3 class="team__box-title">
+              {{ coach.acc_lname }} {{ coach.acc_fname }} {{ coach.acc_patronymic }}
+            </h3>
+            <a href="#" class="team__box-link link">Детальніше</a>
+          </div>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+{%endblock%}

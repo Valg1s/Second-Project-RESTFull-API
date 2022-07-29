@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ super() }}
+<title>Календар тренування</title>
+{% endblock %}
+
+{%block main%}
+{{ super() }}
+
+<main>
+    <section class="training">
+      <div class="container">
+        <h1 class="training__title main-title">Тренування</h1>
+        <ul class="training__list">
+          <li class="training__list-item">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="./calendar?month={{month - 1}}"><<</a></li>
+                Місяць: {{name_of_month}}
+                <li class="page-item"><a class="page-link" href="./calendar?month={{month + 1}}">>></a></li>
+                <li class="page-item"><a class="page-link" href="./calendar?month=0">Сьогодні</a></li>
+              </ul>
+            </nav>
+          </li>
+          <li class="training__list-item">Состав: Перший</li>
+        </ul>
+        <div class="training__calendar">
+          {% for day in calend %}
+          <div class="training__calendar-day">
+            {% if calend[day] == None %}
+            <h2 class="training__list-item" >{{day}}</h2>
+            {%else:%}
+            <h2 class="training__list-item" > <a class="myLinkModal" data-toggle="modal"  href="#">{{day}}</a>  </h2>
+            <div id="myModal">
+              <div class = "myModal__header">
+               <h2 class="training__title main-title">Тренування</h2>
+              </div>
+              <div class = "myModal__content">
+                <ul class="training__list">
+                  <li class="training__list-item" > Дата: {{day}}.{{number_of_month}}.{{current_year}} </li>
+                  <li class="training__list-item" > Місце: {{calend[day].training_place}} </li>
+                  <li class="training__list-item" > Тип тренування: {% if calend[day].training_category == 0 %} Індивідуальне {% elif calend[day].training_category == 1 %} Командне {% else: %} Тактичне {% endif %} </li>
+                  <li class="training__list-item" > Команда: {{calend[day].team_name}} </li>
+
+                </ul>
+              </div>
+              <span id="myModal__close" class="close">ₓ</span>
+            </div>
+            <div id="myOverlay"></div>
+            <h2 class="about__team-name name-people"> Тренування </h2>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+  </main>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ super() }}
+<title>Контакти</title>
+{% endblock %}
+
+
+{% block main %}
+{{ super() }}
+<main>
+    <section class="contact">
+      <div class="container">
+        <div class="contact__inner">
+          <h2 class="contact__title main-title">Контакти</h2>
+          <p class="contact__descr">
+            Якщо у вас є питання щодо якості тренувань, допоможуть вони вам ці тренування чи ні, або ви просто бажаєте задати уточнювальні питання, то ви можете оставити заявку, щоб наша команда відповіла на ваши питання.
+          </p>
+          <div class="contact__box">
+            <div class="contact__item">
+              <h3 class="contant__item-title">Заявка</h3>
+              <form class="contact__item-form" method="post">
+                <input name="contacts_name" type="text" placeholder="Ім’я Прізвище По-Батькові">
+                <input name="contacts_email" type="email" placeholder="Email">
+                <input name="contacts_phone" type="phone" placeholder="Телефон">
+                <textarea name="contacts_question" id="" cols="30" rows="10" maxlength="2048" placeholder="Питання"></textarea>
+                <button type="submit">Відправити</button>
+                </form>
+                  {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                <ul class=flashes>
+                                    {% for message in messages %}
+                                        <li class="contact__descr">{{ message }}</li>
+                                    {% endfor %}
+                                 </ul>
+                            {% endif %}
+                        {% endwith %}
+
+            </div>
+
+            <div class="contact__item">
+              <h3 class="contant__item-title">Наши офіси</h3>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}
