@@ -39,13 +39,13 @@
               <a href="/contacts" class="menu__link">Контаки</a>
             </li>
           </ul>
-            {% if not id_of_user %}
+            {% if not current_user.get_id() %}
             <a href="/login" class="header__login"> Увійти </a>
             {% else: %}
             <a href="/logout" class="header__login"> Вийти </a>
             {% endif %}
           </span>
-        {% if id_of_user %}
+        {% if current_user.get_id() %}
 
           <div class="menu__icon-burger">
             <span></span>

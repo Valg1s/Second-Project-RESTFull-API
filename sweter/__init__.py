@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_admin import Admin, expose, AdminIndexView
-from flask_restful import Api
+from flask_restful import Api, reqparse
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 
@@ -24,5 +24,8 @@ manager = LoginManager(app)
 manager.login_view = 'login'
 manager.login_message = 'Щоб потрапити на цю сторінку спочатку увійдіть в акаунт'
 admin = Admin(app, 'Спортивна школа', template_mode='bootstrap4',index_view=MainPage(name='Головна',url='/admin',endpoint='/admin/'))
+parser = reqparse.RequestParser()
 
-from . import routes , models
+
+from .database import models
+from . import routes
