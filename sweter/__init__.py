@@ -16,7 +16,7 @@ class MainPage(AdminIndexView):
 app = Flask(__name__, template_folder= "./templates" , static_folder='./templates/static')
 api = Api(app)
 app.secret_key = 'very hard secret key'
-#app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:password@localhost/sport_school"
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://root:anton2142@localhost/sport_school"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)

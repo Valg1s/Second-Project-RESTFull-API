@@ -19,13 +19,23 @@
           <div class="contact__box">
             <div class="contact__item">
               <h3 class="contant__item-title">Заявка</h3>
+                {{form.hidden_tag()}}
+                {% for field in form if field.name not in ['csrf_token', 'submit'] -%}
+                    <span class="invalid-feedback">
+                    {% for e in field.errors %}
+                    {{ e }}
+                    {% endfor %}
+                    </span>
+                {% endfor %}
               <form class="contact__item-form" method="post">
-                <input name="contacts_name" type="text" placeholder="Ім’я Прізвище По-Батькові">
-                <input name="contacts_email" type="email" placeholder="Email">
-                <input name="contacts_phone" type="phone" placeholder="Телефон">
-                <textarea name="contacts_question" id="" cols="30" rows="10" maxlength="2048" placeholder="Питання"></textarea>
-                <button type="submit">Відправити</button>
-                </form>
+              <div>
+                {{ form.contacts_name(placeholder="Ім’я Прізвище По-Батькові") }}
+                {{ form.contacts_email(placeholder="Email") }}
+                {{ form.contacts_phone(placeholder="Телефон") }}
+                {{ form.contacts_question(placeholder="Питання") }}
+                {{ form.submit() }}
+              </div>
+              </form>
                   {% with messages = get_flashed_messages() %}
                             {% if messages %}
                                 <ul class=flashes>

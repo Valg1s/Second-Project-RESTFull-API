@@ -4,37 +4,27 @@ from flask import make_response, render_template, flash
 from flask_restful import Resource
 
 from sweter.database.models import Request
-from sweter import parser, db
+from sweter import db
 
-parser.add_argument('contacts_name', location='form')
-parser.add_argument('contacts_email', location='form')
-parser.add_argument('contacts_phone', location='form')
-parser.add_argument('contacts_question', location='form')
+from sweter.forms.contacts_form import ContactsForm
+
 
 class Contact(Resource):
+    def __init__(self):
+        self.form = ContactsForm()
+
     def get(self):
-        return make_response(render_template('contacts.html'))
+        return make_response(render_template('contacts.html', form=self.form))
 
     def post(self):
-        data = parser.parse_args()
+        request = Request(request_full_name=self.form.contacts_name.data,
+                              request_email=self.form.contacts_email.data,
+                              request_phone=self.form.contacts_phone.data,
+                              request_question=self.form.contacts_question.data, request_date=datetime.now())
 
-        full_name = data['contacts_name']
-        email = data['contacts_email']
-        phone = data['contacts_phone']
-        question = data['contacts_question']
+        db.session.add(request)
+        db.session.commit()
 
-        if not full_name or not email or not phone or not question:
-            flash("Заповніть усі поля")
-        else:
-            phone = phone.replace('+', '')
-            date = datetime.now()
+        flash("Ваша заявка успішно передана в обробку")
 
-            request = Request(request_full_name=full_name, request_email=email, request_phone=phone,
-                              request_question=question, request_date=date)
-
-            db.session.add(request)
-            db.session.commit()
-
-            flash("Ваша заявка успішно передана в обробку")
-
-        return make_response(render_template('contacts.html'))
+        return make_response(render_template('contacts.html', form=self.form))
