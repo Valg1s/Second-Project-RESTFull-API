@@ -1,0 +1,23 @@
+[33mcommit 6b86818d4850cdcfe04a152015ad7698ad76f6ce[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Valg1s <antonsegodin@gmail.com>
+Date:   Tue Aug 2 16:32:17 2022 +0200
+
+    On this commit , I also change structure of my project,create new directories. Fixed bag. Add validation for contracts form and remake validater for phone numbers(translate error message on Ukrainian)
+
+[33mcommit e2ec29249de81de33f65631d8febfa62f97f4942[m
+Author: Valg1s <antonsegodin@gmail.com>
+Date:   Sat Jul 30 22:06:10 2022 +0200
+
+    Changed structure fo project. All routes were replaced to 'resources' directory and subdirectories. All code for database were replaced to 'database' directory.
+
+[33mcommit 826b99eb53c952ba29d20e0c087d4bc34c66e380[m
+Author: Valg1s <antonsegodin@gmail.com>
+Date:   Fri Jul 29 20:03:58 2022 +0200
+
+    Project
+
+[33mcommit 9f3e68eb21b611fe48fd6cfe6b75e68369e10224[m
+Author: Valg1s <antonsegodin@gmail.com>
+Date:   Fri Jul 29 19:59:54 2022 +0200
+
+    first commit
