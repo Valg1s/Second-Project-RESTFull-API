@@ -1,30 +1,45 @@
 from datetime import datetime
 
+from cerberus import Validator
 from flask import make_response, render_template, flash
 from flask_restful import Resource
 
+from sweter.schemas.contact_schema import SCHEMA
+from sweter.schemas.utils.error_handler import CustomErrorHandler
+from sweter.schemas.utils.errors_list import errors_list
 from sweter.database.models import Request
-from sweter import db
+from sweter import db, parser
 
-from sweter.forms.contacts_form import ContactsForm
 
 
 class Contact(Resource):
-    def __init__(self):
-        self.form = ContactsForm()
-
     def get(self):
-        return make_response(render_template('contacts.html', form=self.form))
+        return make_response(render_template('contacts.html'))
 
     def post(self):
-        request = Request(request_full_name=self.form.contacts_name.data,
-                              request_email=self.form.contacts_email.data,
-                              request_phone=self.form.contacts_phone.data,
-                              request_question=self.form.contacts_question.data, request_date=datetime.now())
+        v = Validator(SCHEMA, error_handler=CustomErrorHandler)
+        v.allow_unknown = True
 
-        db.session.add(request)
-        db.session.commit()
+        data = parser.parse_args()
 
-        flash("Ваша заявка успішно передана в обробку")
+        if v.validate(data):
+            full_name = data['contacts_name']
+            email = data['contacts_email']
+            phone = data['contacts_phone']
+            question = data['contacts_question']
 
-        return make_response(render_template('contacts.html', form=self.form))
+            phone = phone.replace('+', '')
+            date = datetime.now()
+
+            request = Request(request_full_name=full_name, request_email=email, request_phone=phone,
+                              request_question=question, request_date=date)
+
+            db.session.add(request)
+            db.session.commit()
+
+            flash("Ваша заявка успішно передана в обробку")
+
+        else:
+            errors = errors_list(v.errors)
+            return make_response(render_template('contacts.html', errors=errors))
+        return make_response(render_template('contacts.html'))

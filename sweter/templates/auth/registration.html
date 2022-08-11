@@ -21,6 +21,13 @@
                                  </ul>
                             {% endif %}
                         {% endwith %}
+          {% if errors%}
+                <ul class=flashes>
+                                    {% for error in errors %}
+                                        <li class="contact__descr">{{ "".join(error) }}</li>
+                                    {% endfor %}
+                                 </ul>
+                            {% endif %}
         <form action="" class="register__form" method="POST">
           <input class="login__input" name="login" type="text" placeholder="Логін">
           <input class="login__input" name="password" type="password" placeholder="Пароль">

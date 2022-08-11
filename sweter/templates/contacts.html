@@ -44,7 +44,15 @@
                                     {% endfor %}
                                  </ul>
                             {% endif %}
-                        {% endwith %}
+                  {% endwith %}
+                {% if errors%}
+                <ul class=flashes>
+                                    {% for error in errors %}
+                                        <li class="contact__descr">{{ "".join(error) }}</li>
+                                    {% endfor %}
+                                 </ul>
+                            {% endif %}
+
 
             </div>
 

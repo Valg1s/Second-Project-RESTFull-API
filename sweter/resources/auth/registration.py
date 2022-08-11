@@ -1,9 +1,13 @@
 from datetime import datetime
 from random import randint
 
+from cerberus import Validator
 from dateutil.relativedelta import relativedelta
 from werkzeug.security import generate_password_hash
 
+from schemas.utils.errors_list import errors_list
+from schemas.utils.error_handler import CustomErrorHandler
+from sweter.schemas.register_schema import SCHEMA
 from sweter.database.models import User, Team, Player
 from sweter import parser, db
 
@@ -27,29 +31,30 @@ parser.add_argument('gender', location='form')
 
 class Registration(Resource):
     def get(self):
-        return make_response(render_template('registration.html'))
+        return make_response(render_template('auth/registration.html'))
 
     def post(self):
+        v = Validator(SCHEMA, error_handler=CustomErrorHandler)
+        v.allow_unknown = True
+
         data = parser.parse_args()
 
-        login = data['login']
-        password = data['password']
-        password2 = data['password2']
-        fname = data['fname']
-        lname = data['lname']
-        patronymic = data['patronymic']
-        position = data['position']
-        weight = data['weight']
-        height = data['height']
-        health = data['health']
-        born_date = data['born_date']
-        date_in_contract = data['date_in_contract']
-        gender = data['gender']
+        if v.validate(data):
 
-        if not login or not password or not password2 or not fname or not lname or not patronymic or not position or not weight or not height or not health or not born_date or not date_in_contract or not gender:
-            flash("Заповніть усі поля")
-            return make_response(render_template("registration.html"))
-        else:
+            login = data['login']
+            password = data['password']
+            password2 = data['password2']
+            fname = data['fname']
+            lname = data['lname']
+            patronymic = data['patronymic']
+            position = data['position']
+            weight = data['weight']
+            height = data['height']
+            health = data['health']
+            born_date = data['born_date']
+            date_in_contract = data['date_in_contract']
+            gender = data['gender']
+
             if User.query.filter_by(acc_login=login).all():
                 flash("Даний користувач вже зареєстрований")
                 return make_response(redirect(url_for("login")))
@@ -89,3 +94,6 @@ class Registration(Resource):
                         db.session.commit()
 
                         return make_response(redirect(url_for('login')))
+        else:
+            errors = errors_list(v.errors)
+            return make_response(render_template('auth/registration.html', errors=errors))
