@@ -16,6 +16,7 @@ parser.add_argument('password', location='form')
 
 
 class Login(Resource):
+    """ This class is responsible for handling requests for the Login page. """
     def get(self):
         return make_response(render_template('auth/login.html'))
 

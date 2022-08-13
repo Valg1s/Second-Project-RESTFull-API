@@ -6,6 +6,7 @@ from sweter import db
 
 
 class About(Resource):
+    """ This class is responsible for handling requests for the About page. """
     def get(self):
         coaches = (db.session.query(Coach, User, Team)
                    .join(User, Coach.coach_acc == User.acc_id)

@@ -16,6 +16,7 @@ class MyModelView(ModelView):
         else:
             return False
 
+
 admin.add_view(MyModelView(User, db.session, name="Користувач"))
 admin.add_view(MyModelView(Player, db.session, name="Гравець"))
 admin.add_view(MyModelView(Coach, db.session, name="Тренер"))

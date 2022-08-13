@@ -32,6 +32,7 @@ def phone_validator(field, value, error):
     if not phonenumbers.is_valid_number(number):
         error(field, "Ваш номер повинен відповідати шаблону xxx xxx xx xx,де x це цифри")
 
-def password_validator(field, value,error):
+
+def password_validator(field, value, error):
     if police.test(value):
         error(field, "Пароль мусить містити мінімум 8 символів,1 велику літеру , 1 число , 1 спец.символ")

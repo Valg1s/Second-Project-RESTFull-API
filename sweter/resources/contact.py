@@ -11,8 +11,8 @@ from sweter.database.models import Request
 from sweter import db, parser
 
 
-
 class Contact(Resource):
+    """ This class is responsible for handling requests for the Contact page. """
     def get(self):
         return make_response(render_template('contacts.html'))
 

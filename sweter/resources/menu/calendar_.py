@@ -16,6 +16,7 @@ parser.add_argument('month', location='args')
 
 
 class Calendar(Resource):
+    """ This class is responsible for handling requests for the Registration page. """
     def get(self):
         id_of_user = current_user.get_id()
 
@@ -39,8 +40,6 @@ class Calendar(Resource):
             current_year = datetime.now().year
 
             days = calendar.monthrange(current_year, number_of_month)[1]
-
-
 
         else:
             morph = pymorphy2.MorphAnalyzer()
@@ -74,8 +73,8 @@ class Calendar(Resource):
             calend[day] = None
 
         for training in trainings:
-            if int(training.training_date.strftime('%m')) == number_of_month and int(
-                    training.training_date.strftime('%Y')) == current_year:
+            if int(training.training_date.strftime('%m')) == number_of_month and \
+               int(training.training_date.strftime('%Y')) == current_year:
                 calend[int(training.training_date.strftime('%d'))] = training
 
         return make_response(

@@ -4,6 +4,8 @@ from random import randint
 from cerberus import Validator
 from dateutil.relativedelta import relativedelta
 from werkzeug.security import generate_password_hash
+from flask import make_response, render_template, flash, redirect, url_for
+from flask_restful import Resource
 
 from schemas.utils.errors_list import errors_list
 from schemas.utils.error_handler import CustomErrorHandler
@@ -11,12 +13,10 @@ from sweter.schemas.register_schema import SCHEMA
 from sweter.database.models import User, Team, Player
 from sweter import parser, db
 
-from flask import make_response, render_template, flash, redirect, url_for
-from flask_restful import Resource
-
 parser.add_argument('login', location='form')
 parser.add_argument('password', location='form')
 parser.add_argument('password2', location='form')
+
 parser.add_argument('fname', location='form')
 parser.add_argument('lname', location='form')
 parser.add_argument('patronymic', location='form')
@@ -30,16 +30,17 @@ parser.add_argument('gender', location='form')
 
 
 class Registration(Resource):
+    """ This class is responsible for handling requests for the Registration page. """
     def get(self):
         return make_response(render_template('auth/registration.html'))
 
     def post(self):
-        v = Validator(SCHEMA, error_handler=CustomErrorHandler)
-        v.allow_unknown = True
+        validator = Validator(SCHEMA, error_handler=CustomErrorHandler)
+        validator.allow_unknown = True
 
         data = parser.parse_args()
 
-        if v.validate(data):
+        if validator.validate(data):
 
             login = data['login']
             password = data['password']
@@ -63,8 +64,10 @@ class Registration(Resource):
                     flash("Введено різні паролі")
                     return make_response(redirect(url_for('registration')))
                 else:
-                    if User.query.filter_by(acc_fname=fname).filter_by(acc_lname=lname).filter_by(
-                            acc_patronymic=patronymic).filter_by(acc_born_date=born_date).first():
+                    if User.query.filter_by(acc_fname=fname)\
+                            .filter_by(acc_lname=lname)\
+                            .filter_by(acc_patronymic=patronymic).\
+                            filter_by(acc_born_date=born_date).first():
                         flash("Гравець з такими даними вже існує в базі")
                         return make_response(redirect(url_for('login')))
                     else:
@@ -76,10 +79,11 @@ class Registration(Resource):
 
                         hash_password = generate_password_hash(password)
 
-                        user = User(acc_login=login, acc_password=hash_password, acc_status='0', acc_fname=fname,
-                                    acc_lname=lname, acc_patronymic=patronymic, acc_born_date=born_date,
-                                    acc_date_in_contract=date_in_contract, acc_date_out_contract=date_out_contract,
-                                    acc_gender=gender, id_of_team=id_of_team, acc_win_games=0, acc_odd_games=0,
+                        user = User(acc_login=login, acc_password=hash_password, acc_status='0',
+                                    acc_fname=fname, acc_lname=lname, acc_patronymic=patronymic,
+                                    acc_born_date=born_date, acc_date_in_contract=date_in_contract,
+                                    acc_date_out_contract=date_out_contract, acc_gender=gender,
+                                    id_of_team=id_of_team, acc_win_games=0, acc_odd_games=0,
                                     acc_lose_games=0, name_of_photo="photoPeople1.png")
 
                         db.session.add(user)
@@ -87,13 +91,14 @@ class Registration(Resource):
 
                         user_id = User.query.filter_by(acc_login=login).first().acc_id
 
-                        player = Player(player_position=position, player_height=height, player_weight=weight,
-                                        player_health=health, player_goals=0, player_assist=0, player_acc=user_id)
+                        player = Player(player_position=position, player_height=height,
+                                        player_weight=weight, player_health=health,
+                                        player_goals=0, player_assist=0, player_acc=user_id)
 
                         db.session.add(player)
                         db.session.commit()
 
                         return make_response(redirect(url_for('login')))
         else:
-            errors = errors_list(v.errors)
+            errors = errors_list(validator.errors)
             return make_response(render_template('auth/registration.html', errors=errors))
